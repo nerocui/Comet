@@ -246,7 +246,7 @@ stages:
         versioningScheme: byEnvVar
         versionEnvVar: VERSION
 
-    - task: DotNetCoreCLI@2
+    - task: NuGetCommand@2
       displayName: 'dotnet pack HotUI.UWP'
       inputs:
         command: pack
@@ -254,7 +254,7 @@ stages:
         versioningScheme: byEnvVar
         versionEnvVar: VERSION
 
-    - task: DotNetCoreCLI@2
+    - task: NuGetCommand@2
       displayName: 'dotnet pack HotUI.WPF'
       inputs:
         command: pack
@@ -270,7 +270,7 @@ stages:
         versioningScheme: byEnvVar
         versionEnvVar: VERSION
 
-    - task: DotNetCoreCLI@2
+    - task: NuGetCommand@2
       displayName: 'dotnet pack HotUI.Skia.UWP'
       inputs:
         command: pack
@@ -278,7 +278,7 @@ stages:
         versioningScheme: byEnvVar
         versionEnvVar: VERSION
 
-    - task: DotNetCoreCLI@2
+    - task: NuGetCommand@2
       displayName: 'dotnet pack HotUI.Skia.WPF'
       inputs:
         command: pack
