@@ -167,12 +167,6 @@ stages:
         versioningScheme: byEnvVar
         versionEnvVar: VERSION
 
-    - task: NuGetCommand@2
-      inputs:
-        command: 'pack'
-        packagesToPack: 'HotUI.nuspec'
-        versioningScheme: 'byEnvVar'
-        versionEnvVar: 'v$(VERSION)-beta'
 
     - task: CopyFiles@2
       inputs:
@@ -253,7 +247,7 @@ stages:
         versioningScheme: byEnvVar
         versionEnvVar: VERSION
 
-    - task: DotNetCoreCLI@2
+    - task: NuGetCommand@2
       displayName: 'dotnet pack HotUI.UWP'
       inputs:
         command: pack
@@ -261,7 +255,7 @@ stages:
         versioningScheme: byEnvVar
         versionEnvVar: VERSION
 
-    - task: DotNetCoreCLI@2
+    - task: NuGetCommand@2
       displayName: 'dotnet pack HotUI.WPF'
       inputs:
         command: pack
@@ -354,6 +348,13 @@ stages:
         downloadType: 'single'
         artifactName: 'drop_nuget_windows'
         downloadPath: '$(System.ArtifactsDirectory)'
+
+    # - task: NuGetCommand@2
+    #   inputs:
+    #     command: 'pack'
+    #     packagesToPack: 'HotUI.nuspec'
+    #     versioningScheme: 'byEnvVar'
+    #     versionEnvVar: 'v$(VERSION)-beta'
 
     - task: NuGetCommand@2
       inputs:
