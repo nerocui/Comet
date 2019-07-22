@@ -101,7 +101,7 @@ stages:
         command: pack
         packagesToPack: 'src/HotUI/HotUI.csproj'
         versioningScheme: byEnvVar
-        versionEnvVar: VERSION
+        versionEnvVar: VERSION-beta
 
     - task: DotNetCoreCLI@2
       displayName: 'dotnet pack Xamarin.Forms.Loader'
@@ -109,7 +109,7 @@ stages:
         command: pack
         packagesToPack: 'src/Xamarin.Forms.Loader/Xamarin.Forms.Loader.csproj'
         versioningScheme: byEnvVar
-        versionEnvVar: VERSION
+        versionEnvVar: VERSION-beta
 
     - task: NuGetCommand@2
       displayName: 'dotnet pack HotUI.Android'
@@ -117,7 +117,7 @@ stages:
         command: pack
         packagesToPack: 'src/HotUI.Android/HotUI.Android.csproj'
         versioningScheme: byEnvVar
-        versionEnvVar: VERSION
+        versionEnvVar: VERSION-beta
 
     - task: NuGetCommand@2
       displayName: 'dotnet pack HotUI.iOS'
@@ -125,7 +125,7 @@ stages:
         command: pack
         packagesToPack: 'src/HotUI.iOS/HotUI.iOS.csproj'
         versioningScheme: byEnvVar
-        versionEnvVar: VERSION
+        versionEnvVar: VERSION-beta
 
     - task: NuGetCommand@2
       displayName: 'dotnet pack HotUI.Mac'
@@ -133,7 +133,7 @@ stages:
         command: pack
         packagesToPack: 'src/HotUI.Mac/HotUI.Mac.csproj'
         versioningScheme: byEnvVar
-        versionEnvVar: VERSION
+        versionEnvVar: VERSION-beta
 
     - task: DotNetCoreCLI@2
       displayName: 'dotnet pack HotUI.Skia'
@@ -141,7 +141,7 @@ stages:
         command: pack
         packagesToPack: 'src/HotUI.Skia/HotUI.Skia.csproj'
         versioningScheme: byEnvVar
-        versionEnvVar: VERSION
+        versionEnvVar: VERSION-beta
 
     - task: NuGetCommand@2
       displayName: 'dotnet pack HotUI.Skia.Android'
@@ -149,7 +149,7 @@ stages:
         command: pack
         packagesToPack: 'src/HotUI.Skia.Android/HotUI.Skia.Android.csproj'
         versioningScheme: byEnvVar
-        versionEnvVar: VERSION
+        versionEnvVar: VERSION-beta
 
     - task: NuGetCommand@2
       displayName: 'dotnet pack HotUI.Skia.iOS'
@@ -157,7 +157,7 @@ stages:
         command: pack
         packagesToPack: 'src/HotUI.Skia.iOS/HotUI.Skia.iOS.csproj'
         versioningScheme: byEnvVar
-        versionEnvVar: VERSION
+        versionEnvVar: VERSION-beta
 
     - task: NuGetCommand@2
       displayName: 'dotnet pack HotUI.Skia.Mac'
@@ -165,8 +165,7 @@ stages:
         command: pack
         packagesToPack: 'src/HotUI.Skia.Mac/HotUI.Skia.Mac.csproj'
         versioningScheme: byEnvVar
-        versionEnvVar: VERSION
-
+        versionEnvVar: VERSION-beta
 
     - task: CopyFiles@2
       inputs:
@@ -245,23 +244,23 @@ stages:
         command: pack
         packagesToPack: 'src/HotUI/HotUI.csproj'
         versioningScheme: byEnvVar
-        versionEnvVar: VERSION
+        versionEnvVar: VERSION-beta
 
-    - task: NuGetCommand@2
+    - task: DotNetCoreCLI@2
       displayName: 'dotnet pack HotUI.UWP'
       inputs:
         command: pack
         packagesToPack: 'src/HotUI.UWP/HotUI.UWP.csproj'
         versioningScheme: byEnvVar
-        versionEnvVar: VERSION
+        versionEnvVar: VERSION-beta
 
-    - task: NuGetCommand@2
+    - task: DotNetCoreCLI@2
       displayName: 'dotnet pack HotUI.WPF'
       inputs:
         command: pack
         packagesToPack: 'src/HotUI.WPF/HotUI.WPF.csproj'
         versioningScheme: byEnvVar
-        versionEnvVar: VERSION
+        versionEnvVar: VERSION-beta
 
     - task: DotNetCoreCLI@2
       displayName: 'dotnet pack HotUI.Skia'
@@ -269,30 +268,23 @@ stages:
         command: pack
         packagesToPack: 'src/HotUI.Skia/HotUI.Skia.csproj'
         versioningScheme: byEnvVar
-        versionEnvVar: VERSION
+        versionEnvVar: VERSION-beta
 
-    - task: NuGetCommand@2
+    - task: DotNetCoreCLI@2
       displayName: 'dotnet pack HotUI.Skia.UWP'
       inputs:
         command: pack
         packagesToPack: 'src/HotUI.Skia.UWP/HotUI.Skia.UWP.csproj'
         versioningScheme: byEnvVar
-        versionEnvVar: VERSION
+        versionEnvVar: VERSION-beta
 
-    - task: NuGetCommand@2
+    - task: DotNetCoreCLI@2
       displayName: 'dotnet pack HotUI.Skia.WPF'
       inputs:
         command: pack
         packagesToPack: 'src/HotUI.Skia.WPF/HotUI.Skia.WPF.csproj'
         versioningScheme: byEnvVar
-        versionEnvVar: VERSION
-
-    - task: NuGetCommand@2
-      inputs:
-        command: 'pack'
-        packagesToPack: 'HotUI.nuspec'
-        versioningScheme: 'byEnvVar'
-        versionEnvVar: 'v$(VERSION)-beta'
+        versionEnvVar: VERSION-beta
 
     - task: CopyFiles@2
       inputs:
@@ -349,31 +341,9 @@ stages:
         artifactName: 'drop_nuget_windows'
         downloadPath: '$(System.ArtifactsDirectory)'
 
-    # - task: NuGetCommand@2
-    #   inputs:
-    #     command: 'pack'
-    #     packagesToPack: 'HotUI.nuspec'
-    #     versioningScheme: 'byEnvVar'
-    #     versionEnvVar: 'v$(VERSION)-beta'
-
     - task: NuGetCommand@2
       inputs:
         command: 'push'
         packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
         nuGetFeedType: 'external'
         publishFeedCredentials: 'ClanceyNugetFeed'
-
-    - task: GitHubRelease@0
-      inputs:
-        gitHubConnection: 'GitHubRelease'
-        repositoryName: 'Clancey/HotUI'
-        action: 'create'
-        target: '$(Build.SourceVersion)'
-        tagSource: 'manual'
-        tag: 'v$(VERSION)-beta'
-        title: 'v$(VERSION)-beta'
-        assets: |
-          $(System.ArtifactsDirectory)/**/drop_nuget_mac/*.nupkg
-          $(System.ArtifactsDirectory)/**/drop_nuget_windows/*.nupkg
-        addChangeLog: false
-        isDraft: true
