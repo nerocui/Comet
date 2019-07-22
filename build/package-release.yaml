@@ -4,9 +4,14 @@ stages:
   - job: BuildHot
     displayName: Build HoTUI
     pool:
-      vmImage: 'windows-2019'
+      name: Hosted macOS
+      vmImage: 'macOS 10.14'
       demands:
       - MSBuild
+      - Xamarin.Android
+      - xcode
+      - Xamarin.iOS
+      - msbuild
     
     steps:
     - task: NuGetToolInstaller@1
@@ -37,13 +42,13 @@ stages:
                   echo "##vso[task.setvariable variable=Version]$VERSION"
 
     - task: MSBuild@1
-      displayName: 'Build HotUI.UWP'
+      displayName: 'Build HotUI-nuget.sln'
       inputs:
         solution: 'build/HotUI-nuget.sln'
         configuration: '$(BuildConfiguration)'
 
     - task: NuGetCommand@2
-      displayName: 'dotnet pack HotUI.Skia.WPF'
+      displayName: 'dotnet pack HotUI.nuspec'
       inputs:
         command: pack
         packagesToPack: 'HotUI.nuspec'
