@@ -167,13 +167,6 @@ stages:
         versioningScheme: byEnvVar
         versionEnvVar: VERSION
 
-    - task: NuGetCommand@2
-      inputs:
-        command: 'pack'
-        packagesToPack: 'HotUI.nuspec'
-        versioningScheme: 'byEnvVar'
-        versionEnvVar: 'v$(VERSION)-beta'
-
     - task: CopyFiles@2
       inputs:
         SourceFolder: '$(Build.SourcesDirectory)'
@@ -253,7 +246,7 @@ stages:
         versioningScheme: byEnvVar
         versionEnvVar: VERSION
 
-    - task: DotNetCoreCLI@2
+    - task: NuGetCommand@2
       displayName: 'dotnet pack HotUI.UWP'
       inputs:
         command: pack
@@ -261,7 +254,7 @@ stages:
         versioningScheme: byEnvVar
         versionEnvVar: VERSION
 
-    - task: DotNetCoreCLI@2
+    - task: NuGetCommand@2
       displayName: 'dotnet pack HotUI.WPF'
       inputs:
         command: pack
@@ -277,7 +270,7 @@ stages:
         versioningScheme: byEnvVar
         versionEnvVar: VERSION
 
-    - task: DotNetCoreCLI@2
+    - task: NuGetCommand@2
       displayName: 'dotnet pack HotUI.Skia.UWP'
       inputs:
         command: pack
@@ -285,20 +278,13 @@ stages:
         versioningScheme: byEnvVar
         versionEnvVar: VERSION
 
-    - task: DotNetCoreCLI@2
+    - task: NuGetCommand@2
       displayName: 'dotnet pack HotUI.Skia.WPF'
       inputs:
         command: pack
         packagesToPack: 'src/HotUI.Skia.WPF/HotUI.Skia.WPF.csproj'
         versioningScheme: byEnvVar
         versionEnvVar: VERSION
-
-    - task: NuGetCommand@2
-      inputs:
-        command: 'pack'
-        packagesToPack: 'HotUI.nuspec'
-        versioningScheme: 'byEnvVar'
-        versionEnvVar: 'v$(VERSION)-beta'
 
     - task: CopyFiles@2
       inputs:
