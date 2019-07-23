@@ -4,14 +4,10 @@ stages:
   - job: BuildHot
     displayName: Build HoTUI
     pool:
-      name: Hosted macOS
-      vmImage: 'macOS 10.14'
+      vmImage: 'windows-2019'
       demands:
       - MSBuild
       - Xamarin.Android
-      - xcode
-      - Xamarin.iOS
-      - msbuild
     
     steps:
     - task: NuGetToolInstaller@1
