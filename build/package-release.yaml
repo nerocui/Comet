@@ -76,6 +76,12 @@ stages:
         msbuildArguments: '/p:JavaSdkDirectory="$(JAVA_HOME_8_X64)"'
 
     - task: MSBuild@1
+      displayName: 'Build HotUI.Skia'
+      inputs:
+        solution: 'src/HotUI.Skia/HotUI.Skia.csproj'
+        configuration: '$(BuildConfiguration)'
+
+    - task: MSBuild@1
       displayName: 'Build HotUI.Skia.iOS'
       inputs:
         solution: 'src/HotUI.Skia.iOS/HotUI.Skia.iOS.csproj'
