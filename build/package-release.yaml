@@ -27,7 +27,7 @@ stages:
         script: |
           echo '$(Build_BuildID)' $BUILD_BUILDID
                   BUILDNUMBER=$BUILD_BUILDID
-                  VERSION=1.0.$BUILDNUMBER-beta
+                  VERSION=0.1.$BUILDNUMBER-beta
                   echo 'VERSION ' $VERSION
                   
                   #if ! [ $BRANCH = master ]; then
