@@ -10,7 +10,7 @@
     <description>HotUI MVU .net framwork</description>
     <summary>HotUI is an MVU UI Framework. It lets you build UI quickly and efficiently from C#. It also has HotReload.</summary>
     <copyright>James Clancey</copyright>
-    <projectUrl>https://github.com/clancey/hotui</projectUrl>
+    <projectUrl>https://github.com/Clancey/HotUI</projectUrl>
     <repository type="git" url="https://github.com/clancey/hotui"/>
     <language>C#</language>
     <dependencies>
