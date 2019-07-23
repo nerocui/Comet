@@ -38,9 +38,77 @@ stages:
                   echo "##vso[task.setvariable variable=Version]$VERSION"
 
     - task: MSBuild@1
-      displayName: 'Build HotUI-nuget.sln'
+      displayName: 'Build HotUI'
       inputs:
-        solution: 'build/HotUI-nuget.sln'
+        solution: 'src/HotUI/HotUI.csproj'
+        configuration: '$(BuildConfiguration)'
+
+    - task: MSBuild@1
+      displayName: 'Build HotUI.Android'
+      inputs:
+        solution: 'src/HotUI.Android/HotUI.Android.csproj'
+        configuration: '$(BuildConfiguration)'
+        msbuildArguments: '/p:JavaSdkDirectory="$(JAVA_HOME_8_X64)"'
+
+    - task: MSBuild@1
+      displayName: 'Build HotUI.iOS'
+      inputs:
+        solution: 'src/HotUI.iOS/HotUI.iOS.csproj'
+        configuration: '$(BuildConfiguration)'
+
+    - task: MSBuild@1
+      displayName: 'Build HotUI.Mac'
+      inputs:
+        solution: 'src/HotUI.Mac/HotUI.Mac.csproj'
+        configuration: '$(BuildConfiguration)'
+
+    - task: MSBuild@1
+      displayName: 'Build HotUI.Skia'
+      inputs:
+        solution: 'src/HotUI.Skia/HotUI.Skia.csproj'
+        configuration: '$(BuildConfiguration)'
+    
+    - task: MSBuild@1
+      displayName: 'Build HotUI.Skia.Android'
+      inputs:
+        solution: 'src/HotUI.Skia.Android/HotUI.Skia.Android.csproj'
+        configuration: '$(BuildConfiguration)'
+        msbuildArguments: '/p:JavaSdkDirectory="$(JAVA_HOME_8_X64)"'
+
+    - task: MSBuild@1
+      displayName: 'Build HotUI.Skia.iOS'
+      inputs:
+        solution: 'src/HotUI.Skia.iOS/HotUI.Skia.iOS.csproj'
+        configuration: '$(BuildConfiguration)'
+
+    - task: MSBuild@1
+      displayName: 'Build HotUI.Skia.Mac'
+      inputs:
+        solution: 'src/HotUI.Skia.Mac/HotUI.Skia.Mac.csproj'
+        configuration: '$(BuildConfiguration)'
+
+    - task: MSBuild@1
+      displayName: 'Build HotUI.UWP'
+      inputs:
+        solution: 'src/HotUI.UWP/HotUI.UWP.csproj'
+        configuration: '$(BuildConfiguration)'
+
+    - task: MSBuild@1
+      displayName: 'Build HotUI.WPF'
+      inputs:
+        solution: 'src/HotUI.WPF/HotUI.WPF.csproj'
+        configuration: '$(BuildConfiguration)'
+
+    - task: MSBuild@1
+      displayName: 'Build HotUI.Skia.UWP'
+      inputs:
+        solution: 'src/HotUI.Skia.UWP/HotUI.Skia.UWP.csproj'
+        configuration: '$(BuildConfiguration)'
+
+    - task: MSBuild@1
+      displayName: 'Build HotUI.Skia.WPF'
+      inputs:
+        solution: 'src/HotUI.Skia.WPF/HotUI.Skia.WPF.csproj'
         configuration: '$(BuildConfiguration)'
 
     - task: NuGetCommand@2
