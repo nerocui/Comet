@@ -4,6 +4,8 @@ using Foundation;
 using Comet.Samples;
 using MapKit;
 using UIKit;
+using Comet.Styles;
+using Comet.Styles.Material;
 
 namespace Comet.iOS.Sample {
 	// The UIApplicationDelegate for the application. This class is responsible for launching the
@@ -30,12 +32,14 @@ namespace Comet.iOS.Sample {
             Comet.Reload.Init();
 #endif
 
-            
             Comet.Skia.iOS.UI.Init();
             Comet.iOS.UI.Init();
             Registrar.Handlers.Register<Button, Skia.iOS.SkiaControlHandler<Skia.Button>>();
-            "turtlerock.jpg".LoadImage();
+            
+            Comet.Skia.iOS.UI.Init();
+            Comet.iOS.UI.Init();
 
+            "turtlerock.jpg".LoadImage();
             window = new UIWindow {
 				RootViewController = new MainPage (new List<MenuItem>
                 {
