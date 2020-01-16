@@ -128,7 +128,7 @@ namespace Comet
 			this.ViewHandler = oldView;
 		}
 		View builtView;
-		public View BuiltView => builtView;
+		public View BuiltView => builtView?.BuiltView ?? builtView;
 		internal virtual void Reload(bool isHotReload) => ResetView(isHotReload);
 		void ResetView(bool isHotReload = false)
 		{
@@ -140,12 +140,12 @@ namespace Comet
 			{
 				if (usedEnvironmentData.Any())
 					PopulateFromEnvironment();
-				var oldView = builtView;
+				var oldView = BuiltView;
 				builtView = null;
 
-				if (ViewHandler == null)
-					return;
-				ViewHandler.Remove(this);
+				//if (ViewHandler == null)
+				//	return;
+				ViewHandler?.Remove(this);
 				var view = this.GetRenderView();
 				if (oldView != null)
 					view = view.Diff(oldView, isHotReload);
@@ -197,8 +197,8 @@ namespace Comet
 			CheckForBody();
 			if (Body == null)
 				return this;
-			if (builtView != null)
-				return builtView;
+			if (BuiltView != null)
+				return BuiltView;
 			Debug.WriteLine($"Building View: {this.GetType().Name}");
 			using (new StateBuilder(this))
 			{
@@ -279,7 +279,7 @@ namespace Comet
 
 		public static async void SetGlobalEnvironment(string key, object value)
 		{
-			Environment.SetValue(key, value);
+			Environment.SetValue(key, value,true);
 			await ThreadHelper.SwitchToMainThreadAsync();
 			ActiveViews.ForEach(x => x.ViewPropertyChanged(key, value));
 
@@ -288,7 +288,7 @@ namespace Comet
 		{
 			//If there is no style, set the default key
 			var typedKey = string.IsNullOrWhiteSpace(styleId) ? key : $"{styleId}.{key}";
-			Environment.SetValue(typedKey, value);
+			Environment.SetValue(typedKey, value, true);
 			await ThreadHelper.SwitchToMainThreadAsync();
 			ActiveViews.ForEach(x => x.ViewPropertyChanged(typedKey, value));
 		}
@@ -296,7 +296,7 @@ namespace Comet
 		public static async void SetGlobalEnvironment(Type type, string key, object value)
 		{
 			var typedKey = ContextualObject.GetTypedKey(type, key);
-			Environment.SetValue(typedKey, value);
+			Environment.SetValue(typedKey, value, true);
 			await ThreadHelper.SwitchToMainThreadAsync();
 			ActiveViews.ForEach(x => x.ViewPropertyChanged(typedKey, value));
 		}
@@ -304,7 +304,7 @@ namespace Comet
 		public static void SetGlobalEnvironment(IDictionary<string, object> data)
 		{
 			foreach (var pair in data)
-				Environment.SetValue(pair.Key, pair.Value);
+				Environment.SetValue(pair.Key, pair.Value, true);
 		}
 		public static T GetGlobalEnvironment<T>(string key) => Environment.GetValue<T>(key);
 
@@ -561,7 +561,7 @@ namespace Comet
 		}
 		public override string ToString() => $"{this.GetType()} - {this.Id}";
 
-		View notificationView => replacedView ?? builtView;
+		View notificationView => replacedView ?? BuiltView;
 
 		public virtual void ViewDidAppear()
 		{
@@ -589,6 +589,11 @@ namespace Comet
 			GetAnimations(false)?.Remove(animation);
 			AnimationManger.Remove(animation);
 		}
+
+		public void RemoveAnimations() => GetAnimations(false)?.ToList().ForEach(animation => {
+			animations.Remove(animation);
+			AnimationManger.Remove(animation);
+		});
 
 		public virtual void PauseAnimations()
 		{
