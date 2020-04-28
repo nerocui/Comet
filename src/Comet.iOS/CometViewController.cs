@@ -78,6 +78,15 @@ namespace Comet.iOS
 				this.NavigationController.NavigationBar.TitleTextAttributes = new UIStringAttributes { ForegroundColor = textColor };
 			}
 		}
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				CurrentView?.Dispose();
+				CurrentView = null;
+			}
+			base.Dispose(disposing);
+		}
 
 		public void SetView(View view) => CurrentView = view;
 

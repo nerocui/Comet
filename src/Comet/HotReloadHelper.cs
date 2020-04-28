@@ -125,11 +125,12 @@ namespace Comet
 			{
 				try
 				{
+					//roots = View.ActiveViews.Where(x => (x.Parent is CometApp) || (x.Parent == null && !(x is CometApp) )).ToList();
 					roots = View.ActiveViews.Where(x => x.Parent == null).ToList();
 				}
 				catch
 				{
-					//Sometimes we get list changed exception. Ignorethat crap!!!!
+					//Sometimes we get list changed exception.
 				}
 			}
 
